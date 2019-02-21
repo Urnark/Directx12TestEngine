@@ -6,7 +6,7 @@
 #include "../VirtualInputCodes.h"
 #include "../../Events/EventSystem.h"
 
-// define DX12GE_UNICODE to use wstring
+// define UNICODE to use wstring
 
 namespace dx12ge
 {
@@ -25,7 +25,7 @@ namespace dx12ge
 	{
 	private:
 		std::unordered_map<dx12ge::E_KeyCode, E_KeyState> _keys;
-#ifdef DX12GE_UNICODE
+#ifdef UNICODE
 		std::wstring _text;
 #else
 		std::string _text;
@@ -54,7 +54,7 @@ namespace dx12ge
 		// Text input
 		bool hasEnteredText();
 		void startRecordTextInput();
-#ifdef DX12GE_UNICODE
+#ifdef UNICODE
 		std::wstring& getText();
 		std::wstring stopRecordTextInput();
 #else

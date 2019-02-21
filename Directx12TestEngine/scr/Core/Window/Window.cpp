@@ -89,33 +89,37 @@ dx12ge::Window & dx12ge::Window::get()
 	return window;
 }
 
-void dx12ge::Window::init(const WinMainParams & winMainParams, const std::string & title)
+void dx12ge::Window::init(const WinMainParams & winMainParams, const std::string & title, bool createDebugConsole)
 {
-	init(winMainParams, title, DX12GE_SCREEN_SIZE_HD);
+	init(winMainParams, title, DX12GE_SCREEN_SIZE_HD, createDebugConsole);
 }
 
-void dx12ge::Window::init(const WinMainParams & winMainParams, const std::string & title, E_ScreenSize screenSize)
+void dx12ge::Window::init(const WinMainParams & winMainParams, const std::string & title, E_ScreenSize screenSize, bool createDebugConsole)
 {
-	init(winMainParams, title, screenSize, -1, -1);
+	init(winMainParams, title, screenSize, -1, -1, createDebugConsole);
 }
 
-void dx12ge::Window::init(const WinMainParams & winMainParams, const std::string & title, E_ScreenSize screenSize, int x, int y)
+void dx12ge::Window::init(const WinMainParams & winMainParams, const std::string & title, E_ScreenSize screenSize, int x, int y, bool createDebugConsole)
 {
+	if (createDebugConsole)
+		dx12ge::DebugConsole::get().init(title);
 	initWindow(winMainParams, title, screenSize, x, y);
 }
 
-void dx12ge::Window::init(const WinMainParams & winMainParams, const std::wstring & title)
+void dx12ge::Window::init(const WinMainParams & winMainParams, const std::wstring & title, bool createDebugConsole)
 {
-	init(winMainParams, title, DX12GE_SCREEN_SIZE_HD);
+	init(winMainParams, title, DX12GE_SCREEN_SIZE_HD, createDebugConsole);
 }
 
-void dx12ge::Window::init(const WinMainParams & winMainParams, const std::wstring & title, E_ScreenSize screenSize)
+void dx12ge::Window::init(const WinMainParams & winMainParams, const std::wstring & title, E_ScreenSize screenSize, bool createDebugConsole)
 {
-	init(winMainParams, title, screenSize, -1, -1);
+	init(winMainParams, title, screenSize, -1, -1, createDebugConsole);
 }
 
-void dx12ge::Window::init(const WinMainParams & winMainParams, const std::wstring & title, E_ScreenSize screenSize, int x, int y)
+void dx12ge::Window::init(const WinMainParams & winMainParams, const std::wstring & title, E_ScreenSize screenSize, int x, int y, bool createDebugConsole)
 {
+	if (createDebugConsole)
+		dx12ge::DebugConsole::get().init(title);
 	initWindow(winMainParams, title, screenSize, x, y);
 }
 
@@ -123,6 +127,7 @@ void dx12ge::Window::changePostfixTitle(const std::string & title)
 {
 	std::string str = _title + " - " + title;
 	SetWindowTextA(dx12ge::Window::get().getWindow(), (LPCSTR)str.c_str());
+
 }
 
 void dx12ge::Window::changePostfixTitle(const std::wstring & title)
@@ -203,6 +208,7 @@ void dx12ge::Window::run()
 			_msPerFrames = 1000.0 / double(nbFrames);
 			if (_showFPS || _showMsPerFrames)
 			{
+#ifdef UNICODE
 				std::wstring str = L"";
 				if (_showFPS)
 					str = std::to_wstring(_fps) + L" fps";
@@ -210,6 +216,15 @@ void dx12ge::Window::run()
 					str += L", ";
 				if (_showMsPerFrames)
 					str += std::to_wstring(_msPerFrames) + L" ms/frame";
+#else
+				std::string str = "";
+				if (_showFPS)
+					str = std::to_string(_fps) + " fps";
+				if (_showFPS && _showMsPerFrames)
+					str += ", ";
+				if (_showMsPerFrames)
+					str += std::to_string(_msPerFrames) + " ms/frame";
+#endif
 				changePostfixTitle(str);
 			}
 			nbFrames = 0;

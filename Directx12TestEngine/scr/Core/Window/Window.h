@@ -2,18 +2,16 @@
 
 #include <Windows.h>
 #include <string>
-#include <Eigen/Core>
 #include <functional>
 
 #include "../../resource.h"
 #include "../../Utils/dx12geHelper.h"
+#include "DebugConsole.h"
 
-// define DX12GE_UNICODE to use wstring in init function
+// define UNICODE to use wstring in init function
 
 namespace dx12ge
 {
-	using namespace Eigen;
-
 	struct WinMainParams
 	{
 		HINSTANCE& hInstance; 
@@ -88,12 +86,12 @@ namespace dx12ge
 		~Window();
 
 		static Window& get();
-		void init(const WinMainParams& winMainParams, const std::string& title);
-		void init(const WinMainParams& winMainParams, const std::string& title, E_ScreenSize screenSize);
-		void init(const WinMainParams& winMainParams, const std::string& title, E_ScreenSize screenSize, int x, int y);
-		void init(const WinMainParams& winMainParams, const std::wstring& title);
-		void init(const WinMainParams& winMainParams, const std::wstring& title, E_ScreenSize screenSize);
-		void init(const WinMainParams& winMainParams, const std::wstring& title, E_ScreenSize screenSize, int x, int y);
+		void init(const WinMainParams& winMainParams, const std::string& title, bool createDebugConsole = false);
+		void init(const WinMainParams& winMainParams, const std::string& title, E_ScreenSize screenSize, bool createDebugConsole = false);
+		void init(const WinMainParams& winMainParams, const std::string& title, E_ScreenSize screenSize, int x, int y, bool createDebugConsole = false);
+		void init(const WinMainParams& winMainParams, const std::wstring& title, bool createDebugConsole = false);
+		void init(const WinMainParams& winMainParams, const std::wstring& title, E_ScreenSize screenSize, bool createDebugConsole = false);
+		void init(const WinMainParams& winMainParams, const std::wstring& title, E_ScreenSize screenSize, int x, int y, bool createDebugConsole = false);
 
 		HWND& getWindow() { return _hwnd; };
 		int mainReturn() { return _msg.wParam; };
@@ -139,7 +137,7 @@ namespace dx12ge
 		setStringTitle(title);
 		setScreenSize(screenSize);
 
-#ifdef DX12GE_UNICODE
+#ifdef UNICODE
 		WNDCLASSEXW wc;
 #else
 		WNDCLASSEXA wc;
@@ -156,14 +154,14 @@ namespace dx12ge
 		wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 		wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 2);
 		wc.lpszMenuName = NULL;
-#ifdef DX12GE_UNICODE
+#ifdef UNICODE
 		wc.lpszClassName = L"dx12ge::Window";
 #else
 		wc.lpszClassName = "dx12ge::Window";
 #endif
 		wc.hIconSm = LoadIcon(winMainParams.hInstance, MAKEINTRESOURCE(IDI_ICON1));
 
-#ifdef DX12GE_UNICODE
+#ifdef UNICODE
 		if (!RegisterClassExW(&wc))
 		{
 			MessageBoxW(NULL, L"Window Registration Failed!", L"Error!",
@@ -190,7 +188,7 @@ namespace dx12ge
 		}
 
 		// Step 2: Creating the Window
-#ifdef DX12GE_UNICODE
+#ifdef UNICODE
 		_hwnd = CreateWindowExW(
 			WS_EX_CLIENTEDGE,
 			L"dx12ge::Window",

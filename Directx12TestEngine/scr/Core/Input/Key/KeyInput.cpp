@@ -50,7 +50,7 @@ void dx12ge::KeyInput::processInputs(HWND hwnd, UINT msg, WPARAM wParam, LPARAM 
 	case WM_CHAR:
 		// Check bit for the repeat
 		//if (lParam & 0x40000000)
-#ifdef DX12GE_UNICODE
+#ifdef UNICODE
 		if ((wchar_t)wParam != L'\b')
 		{
 			if (_recordTextInput)
@@ -117,7 +117,7 @@ void dx12ge::KeyInput::startRecordTextInput()
 	_text.clear();
 }
 
-#ifdef DX12GE_UNICODE
+#ifdef UNICODE
 std::wstring
 #else
 std::string
@@ -127,7 +127,7 @@ std::string
 	return _text;
 }
 
-#ifdef DX12GE_UNICODE
+#ifdef UNICODE
 std::wstring
 #else
 std::string
@@ -135,7 +135,7 @@ std::string
 dx12ge::KeyInput::stopRecordTextInput()
 {
 	_recordTextInput = false;
-#ifdef DX12GE_UNICODE
+#ifdef UNICODE
 	std::wstring text = _text;
 #else
 	std::string text = _text;

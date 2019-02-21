@@ -7,7 +7,6 @@
 
 #include <Eigen/Dense>
 #include "Utils\Debug.h"
-#include <thread>
 
 #include "Core\TestGame\Game.h"
 
@@ -21,7 +20,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	WinMainParams winMainParams = { hInstance, hPrevInstance, lpCmdLine, nCmdShow };
 	Window& window = Window::get();
-	window.init(winMainParams, "Test window");
+	window.init(winMainParams, "Test window", true);
 
 	// Set key input class
 	window.setKeyInputFunc(&KeyInput::get(), &KeyInput::processInputs);
@@ -30,6 +29,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	PrintNL_PFN("hello");
 	print("start\n");
+
+	printf("HELLO!!! I AM THE CONSOLE!\n");
+
+	std::cout << "hello world" << std::endl;
 	
 	Game game;
 	window.setUpdateFunc(&game, &Game::update);

@@ -4,6 +4,7 @@
 #include <string>
 #include <type_traits>
 #include <chrono>
+#include <iostream>
 
 namespace dx12ge
 {
@@ -70,24 +71,41 @@ namespace dx12ge
 		virtual std::string toString() const = 0;
 	};
 
+	extern bool dx12ge_canUseCOUT;
+
 	namespace impl
 	{
-		static void printT(const std::string &&str) { OutputDebugStringA(str.c_str()); }
-		static void printT(const std::string &str) { OutputDebugStringA(str.c_str()); }
-		static void printT(std::string &&str) { OutputDebugStringA(str.c_str()); }
-		static void printT(std::string &str) { OutputDebugStringA(str.c_str()); }
-		static void printT(const std::wstring &&str) { OutputDebugStringW(str.c_str()); }
-		static void printT(const std::wstring &str) { OutputDebugStringW(str.c_str()); }
-		static void printT(std::wstring &&str) { OutputDebugStringW(str.c_str()); }
-		static void printT(std::wstring &str) { OutputDebugStringW(str.c_str()); }
+		static void outputDebugStringA(const char* str)
+		{
+			if (dx12ge_canUseCOUT)
+				std::cout << str;
+			else
+				OutputDebugStringA(str);
+		}
+		static void outputDebugStringW(const wchar_t* str)
+		{
+			if (dx12ge_canUseCOUT)
+				std::wcout << str;
+			else
+				OutputDebugStringW(str);
+		}
+
+		static void printT(const std::string &&str){ outputDebugStringA(str.c_str()); }
+		static void printT(const std::string &str) { outputDebugStringA(str.c_str()); }
+		static void printT(std::string &&str) { outputDebugStringA(str.c_str()); }
+		static void printT(std::string &str) { outputDebugStringA(str.c_str()); }
+		static void printT(const std::wstring &&str) { outputDebugStringW(str.c_str()); }
+		static void printT(const std::wstring &str) { outputDebugStringW(str.c_str()); }
+		static void printT(std::wstring &&str) { outputDebugStringW(str.c_str()); }
+		static void printT(std::wstring &str) { outputDebugStringW(str.c_str()); }
 
 		static void printT(const dx12ge::ToString &&str)
 		{
-			OutputDebugStringA(str.toString().c_str());
+			outputDebugStringA(str.toString().c_str());
 		}
 		static void printT(const dx12ge::ToString &str)
 		{
-			OutputDebugStringA(str.toString().c_str());
+			outputDebugStringA(str.toString().c_str());
 		}
 
 		template <typename Rep, typename Period>
@@ -101,25 +119,25 @@ namespace dx12ge
 			if (typeid(time) == typeid(dx12ge::milliseconds)) s += "ms";
 			if (typeid(time) == typeid(dx12ge::microseconds)) s += "us";
 			if (typeid(time) == typeid(dx12ge::nanoseconds)) s += "ns";
-			OutputDebugStringA(s.c_str());
+			outputDebugStringA(s.c_str());
 		}
 
-		static void printT(const char* &&str) { OutputDebugStringA(str); }
-		static void printT(const char* &str) { OutputDebugStringA(str); }
-		static void printT(char* &&str) { OutputDebugStringA(str); }
-		static void printT(char* &str) { OutputDebugStringA(str); }
-		static void printT(const wchar_t* &str) { OutputDebugStringW(str); }
-		static void printT(const wchar_t* &&str) { OutputDebugStringW(str); }
-		static void printT(wchar_t* &&str) { OutputDebugStringW(str); }
-		static void printT(wchar_t* &str) { OutputDebugStringW(str); }
+		static void printT(const char* &&str) { outputDebugStringA(str); }
+		static void printT(const char* &str) { outputDebugStringA(str); }
+		static void printT(char* &&str) { outputDebugStringA(str); }
+		static void printT(char* &str) { outputDebugStringA(str); }
+		static void printT(const wchar_t* &str) { outputDebugStringW(str); }
+		static void printT(const wchar_t* &&str) { outputDebugStringW(str); }
+		static void printT(wchar_t* &&str) { outputDebugStringW(str); }
+		static void printT(wchar_t* &str) { outputDebugStringW(str); }
 
 		template<typename T>
 		static void printT(T&& t)
 		{
 			std::string s = std::to_string(t);
-			OutputDebugStringA(s.c_str());
+			outputDebugStringA(s.c_str());
 		}
-	}
+	};
 
 	template<typename ...Args>
 	inline static void print(Args &&... params)
@@ -130,6 +148,6 @@ namespace dx12ge
 	inline static void printNL(Args &&... params)
 	{
 		int dummy[] = { 0, ((void)impl::printT(std::forward<Args>(params)), 0) ... };
-		OutputDebugStringA("\n");
+		impl::outputDebugStringA("\n");
 	}
-}
+};
