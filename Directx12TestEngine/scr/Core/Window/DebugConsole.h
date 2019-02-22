@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string>
 
-#include "../../Utils/Debug.h"
+#include "../../Utils/Logging.h"
 
 namespace dx12ge
 {

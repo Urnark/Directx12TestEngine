@@ -1,4 +1,3 @@
-#define DX12GE_DEBUG
 #define EIGEN_MPL2_ONLY
 
 #include "Core\Window\Window.h"
@@ -6,7 +5,7 @@
 #include "Core\Input\Mouse\MouseInput.h"
 
 #include <Eigen/Dense>
-#include "Utils\Debug.h"
+#include "Utils/Logging.h"
 
 #include "Core\TestGame\Game.h"
 
@@ -27,8 +26,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// Set Mouse input class
 	window.setMouseInputFunc(&MouseInput::get(), &MouseInput::processInputs);
 
-	PrintNL_PFN("hello");
-	print("start\n");
+	LogError("This is an error!");
+
+	//PrintNL_PFN("hello");
+	//print("start\n");
 
 	printf("HELLO!!! I AM THE CONSOLE!\n");
 

@@ -36,7 +36,7 @@
     <ClCompile Include="scr\Core\Window\DebugConsole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scr\Utils\Debug.cpp">
+    <ClCompile Include="scr\Utils\Logging.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -48,9 +48,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="scr\Utils\Clock.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\Utils\Debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="scr\Core\Events\EventSystem.h">
@@ -72,6 +69,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="scr\Core\Window\DebugConsole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\Utils\Logging.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

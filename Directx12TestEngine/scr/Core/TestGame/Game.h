@@ -5,6 +5,8 @@
 #include "../Events/EventSystem.h"
 #include "../../Utils/Clock.h"
 
+#include "../../Utils/Logging.h"
+
 using namespace dx12ge;
 
 class Game
