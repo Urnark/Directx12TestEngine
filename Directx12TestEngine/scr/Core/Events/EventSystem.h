@@ -5,7 +5,7 @@
 #include <typeindex>
 #include <functional>
 
-#include "../../Utils/Logging.h"
+#include "../../Utils/Logger.h"
 
 namespace dx12ge
 {

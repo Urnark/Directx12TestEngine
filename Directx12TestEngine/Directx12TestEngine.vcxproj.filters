@@ -36,7 +36,10 @@
     <ClCompile Include="scr\Core\Window\DebugConsole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scr\Utils\Logging.cpp">
+    <ClCompile Include="scr\Utils\Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\Utils\Clock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,7 +74,7 @@
     <ClInclude Include="scr\Core\Window\DebugConsole.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="scr\Utils\Logging.h">
+    <ClInclude Include="scr\Utils\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

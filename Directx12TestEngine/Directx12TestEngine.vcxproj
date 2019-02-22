@@ -134,7 +134,8 @@
     <ClCompile Include="scr\Core\Window\DebugConsole.cpp" />
     <ClCompile Include="scr\Core\Window\Window.cpp" />
     <ClCompile Include="scr\main.cpp" />
-    <ClCompile Include="scr\Utils\Logging.cpp" />
+    <ClCompile Include="scr\Utils\Clock.cpp" />
+    <ClCompile Include="scr\Utils\Logger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -146,7 +147,7 @@
     <ClInclude Include="scr\Core\Window\DebugConsole.h" />
     <ClInclude Include="scr\Core\Window\Window.h" />
     <ClInclude Include="scr\Utils\Clock.h" />
-    <ClInclude Include="scr\Utils\Logging.h" />
+    <ClInclude Include="scr\Utils\Logger.h" />
     <ClInclude Include="scr\Utils\dx12geHelper.h" />
   </ItemGroup>
   <ItemGroup>

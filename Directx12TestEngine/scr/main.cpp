@@ -5,7 +5,7 @@
 #include "Core\Input\Mouse\MouseInput.h"
 
 #include <Eigen/Dense>
-#include "Utils/Logging.h"
+#include "Utils/Logger.h"
 
 #include "Core\TestGame\Game.h"
 
@@ -27,9 +27,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	window.setMouseInputFunc(&MouseInput::get(), &MouseInput::processInputs);
 
 	LogError("This is an error!");
-
-	//PrintNL_PFN("hello");
-	//print("start\n");
 
 	printf("HELLO!!! I AM THE CONSOLE!\n");
 

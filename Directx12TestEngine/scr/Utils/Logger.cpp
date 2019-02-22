@@ -1,16 +1,16 @@
-#include "Logging.h"
+#include "Logger.h"
 
 namespace dx12ge {
 	bool dx12ge_canUseCOUT = false;
 
-	void Logging::outputDebugStringA(dx12ge::Logging::E_LogType logType, const char * str)
+	void Logger::outputDebugStringA(dx12ge::Logger::E_LogType logType, const char * str)
 	{
 		if (dx12ge_canUseCOUT)
 			std::cout << str;
 		else
 			OutputDebugStringA(str);
 	}
-	void Logging::outputDebugStringW(dx12ge::Logging::E_LogType logType, const wchar_t * str)
+	void Logger::outputDebugStringW(dx12ge::Logger::E_LogType logType, const wchar_t * str)
 	{
 		if (dx12ge_canUseCOUT)
 			std::wcout << str;
@@ -18,7 +18,7 @@ namespace dx12ge {
 			OutputDebugStringW(str);
 	}
 
-	std::string Logging::getDir()
+	std::string Logger::getDir()
 	{
 		char cCurrentPath[FILENAME_MAX];
 

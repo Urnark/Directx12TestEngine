@@ -5,7 +5,7 @@
 #include "../Events/EventSystem.h"
 #include "../../Utils/Clock.h"
 
-#include "../../Utils/Logging.h"
+#include "../../Utils/Logger.h"
 
 using namespace dx12ge;
 
